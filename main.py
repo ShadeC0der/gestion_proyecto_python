@@ -147,7 +147,9 @@ def main():
                 elif sub_opcion == "2.6":
                     break
 
-        elif opcion == "3":
+
+
+        elif opcion == "4":
             print("Saliendo del sistema...")
             break
 

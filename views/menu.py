@@ -21,3 +21,11 @@ def menu_departamento():
     print("2.4 Modificar Departamento")
     print("2.5 Eliminar Departamento")
     print("2.6 Volver al menu Principal")
+
+def menu_proyecto():
+    print("3.1 Crear Proyecto")
+    print("3.2 Listar Proyecto")
+    print("3.3 Buscar Proyecto")
+    print("3.4 Modificar Proyecto")
+    print("3.5 Eliminar Proyecto")
+    print("3.6 Volver al menu Principal")
