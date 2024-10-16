@@ -13,7 +13,7 @@ from models.empleado import Empleado
 from models.departamento import Departamento
 from models.proyecto import Proyecto    
 
-# usando controller
+#añadir controllers
 empleado_controller = EmpleadoController()
 departamento_controller = DepartamentoController()
 proyecto_controller = Proyectocontroller()
