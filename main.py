@@ -1,22 +1,25 @@
 # main.py
 
 # Importacion de Vista
-from views.menu import menu_principal, menu_empleado, menu_departamento, menu_proyecto
+from views.menu import menu_principal, menu_empleado, menu_departamento, menu_proyecto, menu_registrodetiempo
 
 # Importacion de Controllers
 from controllers.empleado_controller import EmpleadoController
 from controllers.departamento_controller import DepartamentoController
 from controllers.proyecto_controller import Proyectocontroller
+from controllers.registro_tiempo_controller import RegistroDeTiempoController
 
 # Importacion de Models
 from models.empleado import Empleado
 from models.departamento import Departamento
-from models.proyecto import Proyecto    
+from models.proyecto import Proyecto
+from models.registro_tiempo import RegistroDeTiempo
 
 #añadir controllers
 empleado_controller = EmpleadoController()
 departamento_controller = DepartamentoController()
 proyecto_controller = Proyectocontroller()
+registro_de_tiempo_controller = RegistroDeTiempoController()
 
 def main():
     while True:
@@ -261,8 +264,62 @@ def main():
                 elif sub_opcion == "3.6":
                     break
 
-        # Salir
         elif opcion == "4":
+            while True:
+                menu_registrodetiempo()
+                sub_opcion = input("Seleccione una opción: ")
+                
+                if sub_opcion == "4.1":
+                    fecha = input("Ingrese la fecha del registro de tiempo (YYYY-MM-DD): ")
+                    horasTrabajadas = float(input("Ingrese las Horas trabajadas: "))
+                    descripcion = input("Ingrese la descripcion del proyecto: ")
+                    empleado_id = input("Ingrese el id del empleado: ")
+                    
+                    nuevo_registro = RegistroDeTiempo(fecha=fecha, horasTrabajadas=horasTrabajadas, descripcion=descripcion, empleado_id=empleado_id)
+                    registro_de_tiempo_controller.crear_registro(nuevo_registro)
+                    print("Registro creado exitosamente.")
+
+                elif sub_opcion == "4.2":
+                    registro = registro_de_tiempo_controller.listar_registro()
+                    for reg in registro:
+                        print(reg)
+
+                elif sub_opcion == "4.3":
+                    id_pro = int(input("Ingrese el ID del proyecto a buscar: "))
+                    proyecto = proyecto_controller.buscar_proyecto_por_id(id_pro)
+                    if proyecto:
+                        print(proyecto)
+                    else:
+                        print("Proyecto no encontrado.")
+
+                elif sub_opcion == "4.4":
+                    id_pro = int(input("Ingrese el ID del departamento a modificar: "))
+                    proyecto = proyecto_controller.buscar_proyecto_por_id(id_pro)
+                    if proyecto:
+                        nombre = input("Ingrese el nuevo nombre del proyecto: ")
+                        descripcion = input("Ingrese la nueva descripcion del proyecto: ")
+                        fecha_inicio = input("Ingrese la nueva fecha de inicio del proyecto (YYYY-MM-DD): ")
+
+                        proyecto_modificado = Proyecto(id=id_pro, nombre=nombre, descripcion=descripcion, fecha_inicio=fecha_inicio)
+                        proyecto_controller.modificar_proyecto(proyecto_modificado)
+                        print("Departamento modificado exitosamente.")
+                    else:
+                        print("Departamento no encontrado.")
+
+                elif sub_opcion == "4.5":
+                    id_pro = int(input("Ingrese el ID del proyecto a eliminar: "))
+                    proyecto = proyecto_controller.buscar_proyecto_por_id(id_pro)
+                    if proyecto:
+                        proyecto_controller.eliminar_proyecto(id_pro)
+                        print("Proyecto eliminado exitosamente.")
+                    else:
+                        print("Proyecto no encontrado.")
+
+                elif sub_opcion == "4.6":
+                    break
+
+        # Salir
+        elif opcion == "5":
             print("Saliendo del sistema...")
             break
 
