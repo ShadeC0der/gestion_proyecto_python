@@ -1,6 +1,6 @@
 # main.py
 
-# Importacion de Vistas
+# Importacion de Vista
 from views.menu import menu_principal, menu_empleado, menu_departamento, menu_proyecto
 
 # Importacion de Controllers
@@ -13,6 +13,7 @@ from models.empleado import Empleado
 from models.departamento import Departamento
 from models.proyecto import Proyecto    
 
+# usando controller
 empleado_controller = EmpleadoController()
 departamento_controller = DepartamentoController()
 proyecto_controller = Proyectocontroller()
