@@ -1,3 +1,4 @@
+
 import mysql.connector
 from models.proyecto import Proyecto
 from config.database import db_config
@@ -12,10 +13,8 @@ class Proyectocontroller:
     def crear_proyecto(self, proyecto):
         connection = self.conectar()
         cursor = connection.cursor()
-        query = ("INSERT INTO Proyecto (id, nombre, descripcion, fecha_inicio) "
-                 "VALUES (%s, %s, %s, %s)")
-        cursor.execute(query, (proyecto.get_id(), proyecto.get_nombre(), proyecto.get_descripcion(),
-                               proyecto.get_fecha_inicio()))
+        query = ("INSERT INTO Proyecto (nombre, descripcion, fecha_inicio) ""VALUES (%s, %s, %s)")
+        cursor.execute(query, (proyecto.get_nombre(), proyecto.get_descripcion(), proyecto.get_fecha_inicio()))
         connection.commit()
         cursor.close()
         connection.close()
@@ -43,12 +42,17 @@ class Proyectocontroller:
     def modificar_proyecto(self, proyecto):
         connection = self.conectar()
         cursor = connection.cursor()
-        query = ("UPDATE Proyecto SET id = %s, 'nombre' = %s, 'descripcion' = %s, fecha_inicio = %s")
-        cursor.execute(query, (proyecto.get_id(), proyecto.get_nombreon(),
-                               proyecto.get_descripcion(), proyecto.get_fecha_inicio()))
+        query = ("UPDATE Proyecto SET nombre = %s, descripcion = %s, fecha_inicio = %s WHERE id = %s")
+        cursor.execute(query, (
+            proyecto.get_nombre(),  # El nombre del proyecto
+            proyecto.get_descripcion(),  # La descripción del proyecto
+            proyecto.get_fecha_inicio(),  # La fecha de inicio del proyecto
+            proyecto.get_id()  # El ID del proyecto para el WHERE
+        ))
         connection.commit()
         cursor.close()
         connection.close()
+
 
     def eliminar_proyecto(self, id):
         connection = self.conectar()
