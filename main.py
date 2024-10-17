@@ -308,13 +308,13 @@ def main():
                         print("Registro no encontrado.") 
 
                 elif sub_opcion == "4.5":
-                    id_pro = int(input("Ingrese el ID del proyecto a eliminar: "))
-                    proyecto = proyecto_controller.buscar_proyecto_por_id(id_pro)
-                    if proyecto:
-                        proyecto_controller.eliminar_proyecto(id_pro)
-                        print("Proyecto eliminado exitosamente.")
+                    id_reg = int(input("Ingrese el ID del registro a eliminar: "))
+                    registro = registro_de_tiempo_controller.buscar_registro_por_id(id_reg)
+                    if registro:
+                        registro_de_tiempo_controller.eliminar_registro(id_reg)
+                        print("Registro eliminado exitosamente.")
                     else:
-                        print("Proyecto no encontrado.")
+                        print("Registro no encontrado.")
 
                 elif sub_opcion == "4.6":
                     break
