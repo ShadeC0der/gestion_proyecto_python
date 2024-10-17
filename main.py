@@ -285,12 +285,12 @@ def main():
                         print(reg)
 
                 elif sub_opcion == "4.3":
-                    id_pro = int(input("Ingrese el ID del proyecto a buscar: "))
-                    proyecto = proyecto_controller.buscar_proyecto_por_id(id_pro)
-                    if proyecto:
-                        print(proyecto)
+                    id_reg = int(input("Ingrese el ID del proyecto a buscar: "))
+                    registro = registro_de_tiempo_controller.buscar_registro_por_id(id_reg)
+                    if registro:
+                        print(registro)
                     else:
-                        print("Proyecto no encontrado.")
+                        print("Registro no encontrado.")
 
                 elif sub_opcion == "4.4":
                     id_pro = int(input("Ingrese el ID del departamento a modificar: "))
