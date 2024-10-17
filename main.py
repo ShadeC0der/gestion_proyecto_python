@@ -302,7 +302,7 @@ def main():
                         empleado_id = input("Ingrese el nuevo id del empleado: ")
                     
                         nuevo_registro = RegistroDeTiempo(fecha=fecha, horasTrabajadas=horasTrabajadas, descripcion=descripcion, empleado_id=empleado_id, id=id_reg)
-                        registro_de_tiempo_controller.modificar_proyecto(proyecto_modificado)
+                        registro_de_tiempo_controller.modificar_proyecto(nuevo_registro)
                         print("Registro modificado exitosamente.")
                     else:
                         print("Registro no encontrado.") 
