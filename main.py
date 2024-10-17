@@ -301,8 +301,8 @@ def main():
                         descripcion = input("Ingrese la nueva descripcion del proyecto: ")
                         empleado_id = input("Ingrese el nuevo id del empleado: ")
                     
-                    nuevo_registro = RegistroDeTiempo(fecha=fecha, horasTrabajadas=horasTrabajadas, descripcion=descripcion, empleado_id=empleado_id, id=id_reg)
-                        proyecto_controller.modificar_proyecto(proyecto_modificado)
+                        nuevo_registro = RegistroDeTiempo(fecha=fecha, horasTrabajadas=horasTrabajadas, descripcion=descripcion, empleado_id=empleado_id, id=id_reg)
+                        registro_de_tiempo_controller.modificar_proyecto(proyecto_modificado)
                         print("Registro modificado exitosamente.")
                     else:
                         print("Registro no encontrado.")
