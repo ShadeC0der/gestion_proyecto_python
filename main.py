@@ -264,6 +264,7 @@ def main():
                 elif sub_opcion == "3.6":
                     break
 
+        # Registro de tiempo
         elif opcion == "4":
             while True:
                 menu_registrodetiempo()
