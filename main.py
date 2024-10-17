@@ -305,7 +305,7 @@ def main():
                         registro_de_tiempo_controller.modificar_proyecto(proyecto_modificado)
                         print("Registro modificado exitosamente.")
                     else:
-                        print("Registro no encontrado.")
+                        print("Registro no encontrado.") 
 
                 elif sub_opcion == "4.5":
                     id_pro = int(input("Ingrese el ID del proyecto a eliminar: "))
