@@ -295,14 +295,14 @@ def main():
                 elif sub_opcion == "4.4":
                     id_reg = int(input("Ingrese el ID del departamento a modificar: "))
                     registro = registro_de_tiempo_controller.buscar_registro_por_id(id_reg)
-                    if proyecto:
+                    if registro:
                         fecha = input("Ingrese la nueva fecha del registro de tiempo (YYYY-MM-DD): ")
                         horasTrabajadas = float(input("Ingrese las nuevas Horas trabajadas: "))
                         descripcion = input("Ingrese la nueva descripcion del proyecto: ")
                         empleado_id = input("Ingrese el nuevo id del empleado: ")
                     
                         nuevo_registro = RegistroDeTiempo(fecha=fecha, horasTrabajadas=horasTrabajadas, descripcion=descripcion, empleado_id=empleado_id, id=id_reg)
-                        registro_de_tiempo_controller.modificar_proyecto(nuevo_registro)
+                        registro_de_tiempo_controller.modificar_registro(nuevo_registro)
                         print("Registro modificado exitosamente.")
                     else:
                         print("Registro no encontrado.") 

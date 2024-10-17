@@ -42,7 +42,7 @@ class RegistroDeTiempoController:
     def modificar_registro(self, registro):
         connection = self.conectar()
         cursor = connection.cursor()
-        query = ("UPDATE registrodetiempo SET fecha = %s, horasTrabajadas = %s, descripcion = %s, fecha_inicio = %s WHERE id = %s")
+        query = ("UPDATE registrodetiempo SET fecha = %s, horasTrabajadas = %s, descripcion = %s, empleado_id = %s WHERE id = %s")
         cursor.execute(query, (registro.get_fecha(), registro.get_horasTrabajadas(), registro.get_descripcion(), registro.get_empleado_id(), registro.get_id()))
         connection.commit()
         cursor.close()
