@@ -285,7 +285,7 @@ def main():
                         print(reg)
 
                 elif sub_opcion == "4.3":
-                    id_reg = int(input("Ingrese el ID del proyecto a buscar: "))
+                    id_reg = int(input("Ingrese el ID del registro a buscar: "))
                     registro = registro_de_tiempo_controller.buscar_registro_por_id(id_reg)
                     if registro:
                         print(registro)
@@ -293,18 +293,19 @@ def main():
                         print("Registro no encontrado.")
 
                 elif sub_opcion == "4.4":
-                    id_pro = int(input("Ingrese el ID del departamento a modificar: "))
-                    proyecto = proyecto_controller.buscar_proyecto_por_id(id_pro)
+                    id_reg = int(input("Ingrese el ID del departamento a modificar: "))
+                    registro = registro_de_tiempo_controller.buscar_registro_por_id(id_reg)
                     if proyecto:
-                        nombre = input("Ingrese el nuevo nombre del proyecto: ")
+                        fecha = input("Ingrese la nueva fecha del registro de tiempo (YYYY-MM-DD): ")
+                        horasTrabajadas = float(input("Ingrese las nuevas Horas trabajadas: "))
                         descripcion = input("Ingrese la nueva descripcion del proyecto: ")
-                        fecha_inicio = input("Ingrese la nueva fecha de inicio del proyecto (YYYY-MM-DD): ")
-
-                        proyecto_modificado = Proyecto(id=id_pro, nombre=nombre, descripcion=descripcion, fecha_inicio=fecha_inicio)
+                        empleado_id = input("Ingrese el nuevo id del empleado: ")
+                    
+                    nuevo_registro = RegistroDeTiempo(fecha=fecha, horasTrabajadas=horasTrabajadas, descripcion=descripcion, empleado_id=empleado_id, id=id_reg)
                         proyecto_controller.modificar_proyecto(proyecto_modificado)
-                        print("Departamento modificado exitosamente.")
+                        print("Registro modificado exitosamente.")
                     else:
-                        print("Departamento no encontrado.")
+                        print("Registro no encontrado.")
 
                 elif sub_opcion == "4.5":
                     id_pro = int(input("Ingrese el ID del proyecto a eliminar: "))
