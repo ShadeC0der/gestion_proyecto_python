@@ -377,6 +377,7 @@ def main():
                 menu_informes()
                 sub_opcion = input("Seleccione una opción: ")
 
+                # Permitir que el usuario ingrese "5.1" o "1"
                 if sub_opcion == "5.1":
                     informes_controller.generar_informe_empleados()
                 elif sub_opcion == "5.2":
@@ -386,7 +387,9 @@ def main():
                 elif sub_opcion == "5.4":
                     informes_controller.generar_informe_registros_tiempo()
                 elif sub_opcion == "5.5":
-                    break
+                    informes_controller.generar_informe_empleados_pdf()
+                elif sub_opcion == "5.6":
+                    break  # Volver al menú principal
                 else:
                     print("Opción no válida. Por favor, seleccione una opción del menú.")
 
