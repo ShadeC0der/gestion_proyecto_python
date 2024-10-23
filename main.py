@@ -1,13 +1,14 @@
 # main.py
 
 # Importacion de Vista
-from views.menu import menu_principal, menu_empleado, menu_departamento, menu_proyecto, menu_registrodetiempo
+from views.menu import menu_principal, menu_empleado, menu_departamento, menu_proyecto, menu_registrodetiempo, menu_informes
 
 # Importacion de Controllers
 from controllers.empleado_controller import EmpleadoController
 from controllers.departamento_controller import DepartamentoController
 from controllers.proyecto_controller import Proyectocontroller
 from controllers.registro_tiempo_controller import RegistroDeTiempoController
+from controllers.informes_controller import InformesController
 
 # Importacion de Models
 from models.empleado import Empleado
@@ -20,6 +21,7 @@ empleado_controller = EmpleadoController()
 departamento_controller = DepartamentoController()
 proyecto_controller = Proyectocontroller()
 registro_de_tiempo_controller = RegistroDeTiempoController()
+informes_controller = InformesController()
 
 def main():
     while True:
@@ -32,6 +34,7 @@ def main():
                 menu_empleado()
                 sub_opcion = input("Seleccione una opción: ")
                 
+                # Opcion 1
                 if sub_opcion == "1.1":
                     # Código para crear empleado
                     rut = input("Ingrese el RUT del empleado: ")
@@ -40,8 +43,16 @@ def main():
                     telefono = input("Ingrese el teléfono del empleado: ")
                     email = input("Ingrese el email del empleado: ")
                     fecha_inicio = input("Ingrese la fecha de inicio (YYYY-MM-DD): ")
-                    salario = float(input("Ingrese el salario del empleado: "))
-                    departamento_id = int(input("Ingrese el ID del departamento: "))
+                    try:
+                        salario = float(input("Ingrese el salario del empleado: "))
+                    except ValueError:
+                        print("Error: El salario debe ser un número.")
+                        continue  # Volver al inicio del bucle para reintentar
+                    try:
+                        departamento_id = int(input("Ingrese el ID del departamento: "))
+                    except ValueError:
+                        print("Error: El ID del departamento debe ser un número entero.")
+                        continue  # Volver al inicio del bucle para reintentar
 
                     nuevo_empleado = Empleado(
                         rut=rut, 
@@ -57,12 +68,14 @@ def main():
                     empleado_controller.crear_empleado(nuevo_empleado)
                     print("Empleado creado exitosamente.")
 
+                # Opcion 2
                 elif sub_opcion == "1.2":
                     # Código para listar empleados
                     empleados = empleado_controller.listar_empleados()
                     for emp in empleados:
                         print(emp)
 
+                # Opcion 3
                 elif sub_opcion == "1.3":
                     # Código para buscar empleado por RUT
                     rut = input("Ingrese el RUT del empleado a buscar: ")
@@ -72,6 +85,7 @@ def main():
                     else:
                         print("Empleado no encontrado.")
 
+                # Opcion 4
                 elif sub_opcion == "1.4":
                     # Código para modificar empleado
                     rut = input("Ingrese el RUT del empleado a modificar: ")
@@ -82,8 +96,16 @@ def main():
                         telefono = input("Ingrese el nuevo teléfono del empleado: ")
                         email = input("Ingrese el nuevo email del empleado: ")
                         fecha_inicio = input("Ingrese la nueva fecha de inicio (YYYY-MM-DD): ")
-                        salario = float(input("Ingrese el nuevo salario del empleado: "))
-                        departamento_id = int(input("Ingrese el nuevo ID del departamento: "))
+                        try:
+                            salario = float(input("Ingrese el nuevo salario del empleado: "))
+                        except ValueError:
+                            print("Error: El salario debe ser un número.")
+                            continue  # Volver al inicio del bucle para reintentar
+                        try:
+                            departamento_id = int(input("Ingrese el nuevo ID del departamento: "))
+                        except ValueError:
+                            print("Error: El ID del departamento debe ser un número entero.")
+                            continue  # Volver al inicio del bucle para reintentar
 
                         empleado_modificado = Empleado(
                             id=empleado[0],
@@ -102,14 +124,20 @@ def main():
                     else:
                         print("Empleado no encontrado.")
 
+                # Opcion 5
                 elif sub_opcion == "1.5":
                     # Código para eliminar empleado
                     rut = input("Ingrese el RUT del empleado a eliminar: ")
                     empleado_controller.eliminar_empleado(rut)
                     print("Empleado eliminado exitosamente.")
 
+                # Opcion 6
                 elif sub_opcion == "1.6":
                     break
+                
+                # Opcion no Valida
+                else:
+                    print("Opción no válida. Por favor, seleccione una opción del menú.")
 
         # Departamento
         elif opcion == "2":
@@ -117,35 +145,59 @@ def main():
                 menu_departamento()
                 sub_opcion = input("Seleccione una opción: ")
                 
+                # Opcion 1
                 if sub_opcion == "2.1":
+                    # Crear departamento
                     nombre = input("Ingrese el nombre del departamento: ")
-                    gerente_id = input("Ingrese el ID del gerente (opcional): ")
-                    gerente_id = int(gerente_id) if gerente_id else None
+                    gerente_id_input = input("Ingrese el ID del gerente (opcional): ")
+                    try:
+                        gerente_id = int(gerente_id_input) if gerente_id_input else None
+                    except ValueError:
+                        print("Error: El ID del gerente debe ser un número entero.")
+                        continue  # Volver al inicio del bucle para reintentar
 
                     nuevo_departamento = Departamento(nombre=nombre, gerente_id=gerente_id)
                     departamento_controller.crear_departamento(nuevo_departamento)
                     print("Departamento creado exitosamente.")
 
+                # Opcion 2
                 elif sub_opcion == "2.2":
+                    # Listar departamentos
                     departamentos = departamento_controller.listar_departamentos()
                     for dep in departamentos:
                         print(dep)
 
+                # Opcion 3
                 elif sub_opcion == "2.3":
-                    id_dep = int(input("Ingrese el ID del departamento a buscar: "))
+                    # Buscar departamento por ID
+                    try:
+                        id_dep = int(input("Ingrese el ID del departamento a buscar: "))
+                    except ValueError:
+                        print("Error: El ID del departamento debe ser un número entero.")
+                        continue
                     departamento = departamento_controller.buscar_departamento_por_id(id_dep)
                     if departamento:
                         print(departamento)
                     else:
                         print("Departamento no encontrado.")
 
+                # Opcion 4
                 elif sub_opcion == "2.4":
-                    id_dep = int(input("Ingrese el ID del departamento a modificar: "))
+                    # Modificar departamento
+                    try:
+                        id_dep = int(input("Ingrese el ID del departamento a modificar: "))
+                    except ValueError:
+                        print("Error: El ID del departamento debe ser un número entero.")
+                        continue
                     departamento = departamento_controller.buscar_departamento_por_id(id_dep)
                     if departamento:
                         nombre = input("Ingrese el nuevo nombre del departamento: ")
-                        gerente_id = input("Ingrese el nuevo ID del gerente (opcional): ")
-                        gerente_id = int(gerente_id) if gerente_id else None
+                        gerente_id_input = input("Ingrese el nuevo ID del gerente (opcional): ")
+                        try:
+                            gerente_id = int(gerente_id_input) if gerente_id_input else None
+                        except ValueError:
+                            print("Error: El ID del gerente debe ser un número entero.")
+                            continue
 
                         departamento_modificado = Departamento(id=id_dep, nombre=nombre, gerente_id=gerente_id)
                         departamento_controller.modificar_departamento(departamento_modificado)
@@ -153,61 +205,31 @@ def main():
                     else:
                         print("Departamento no encontrado.")
 
+                # Opcion 5
                 elif sub_opcion == "2.5":
-                    id_dep = int(input("Ingrese el ID del departamento a eliminar: "))
-                    departamento_controller.eliminar_departamento(id_dep)
-                    print("Departamento eliminado exitosamente.")
+                    # Eliminar departamento
+                    try:
+                        id_dep = int(input("Ingrese el ID del departamento a eliminar: "))
+                    except ValueError:
+                        print("Error: El ID del departamento debe ser un número entero.")
+                        continue
+                    confirmacion = input(f"¿Está seguro que desea eliminar el departamento con ID {id_dep}? (s/n): ")
+                    if confirmacion.lower() == 's':
+                        resultado = departamento_controller.eliminar_departamento(id_dep)
+                        if resultado:
+                            print("Departamento eliminado exitosamente.")
+                        else:
+                            print("Departamento no encontrado o no se pudo eliminar.")
+                    else:
+                        print("Operación cancelada.")
 
+                # Opcion 6
                 elif sub_opcion == "2.6":
                     break
-
-            while True:
-                menu_proyecto()
-                sub_opcion = input("Seleccione una opción: ")
                 
-                if sub_opcion == "3.1":
-                    nombre = input("Ingrese el nombre del proyecto: ")
-                    id = input("Ingrese el ID del gerente (opcional): ")
-                    id = int(id) if id else None
-
-                    nuevo_proyecto = Proyecto(nombre=nombre, id=id)
-                    proyecto_controller.crear_proyecto(nuevo_proyecto)
-                    print("Proyecto creado exitosamente.")
-
-                elif sub_opcion == "3.2":
-                    departamentos = departamento_controller.listar_departamentos()
-                    for dep in departamentos:
-                        print(dep)
-
-                elif sub_opcion == "3.3":
-                    id_dep = int(input("Ingrese el ID del departamento a buscar: "))
-                    departamento = departamento_controller.buscar_departamento_por_id(id_dep)
-                    if departamento:
-                        print(departamento)
-                    else:
-                        print("Departamento no encontrado.")
-
-                elif sub_opcion == "3.4":
-                    id_dep = int(input("Ingrese el ID del departamento a modificar: "))
-                    departamento = departamento_controller.buscar_departamento_por_id(id_dep)
-                    if departamento:
-                        nombre = input("Ingrese el nuevo nombre del departamento: ")
-                        gerente_id = input("Ingrese el nuevo ID del gerente (opcional): ")
-                        gerente_id = int(gerente_id) if gerente_id else None
-
-                        departamento_modificado = Departamento(id=id_dep, nombre=nombre, gerente_id=gerente_id)
-                        departamento_controller.modificar_departamento(departamento_modificado)
-                        print("Departamento modificado exitosamente.")
-                    else:
-                        print("Departamento no encontrado.")
-
-                elif sub_opcion == "3.5":
-                    id_dep = int(input("Ingrese el ID del departamento a eliminar: "))
-                    departamento_controller.eliminar_departamento(id_dep)
-                    print("Departamento eliminado exitosamente.")
-
-                elif sub_opcion == "3.6":
-                    break
+                # Opcion no Valida
+                else:
+                    print("Opción no válida. Por favor, seleccione una opción del menú.")
 
         # Proyecto
         elif opcion == "3":
@@ -215,54 +237,83 @@ def main():
                 menu_proyecto()
                 sub_opcion = input("Seleccione una opción: ")
                 
+                # Opcion 1
                 if sub_opcion == "3.1":
+                    # Crear proyecto
                     nombre = input("Ingrese el nombre del proyecto: ")
-                    descripcion = input("Ingrese la descripcion del proyecto: ")
+                    descripcion = input("Ingrese la descripción del proyecto: ")
                     fecha_inicio = input("Ingrese la fecha de inicio del proyecto (YYYY-MM-DD): ")
-                    
 
                     nuevo_proyecto = Proyecto(nombre=nombre, descripcion=descripcion, fecha_inicio=fecha_inicio)
                     proyecto_controller.crear_proyecto(nuevo_proyecto)
                     print("Proyecto creado exitosamente.")
 
+                # Opcion 2
                 elif sub_opcion == "3.2":
+                    # Listar proyectos
                     proyectos = proyecto_controller.listar_proyecto()
                     for pro in proyectos:
                         print(pro)
 
+                # Opcion 3
                 elif sub_opcion == "3.3":
-                    id_pro = int(input("Ingrese el ID del proyecto a buscar: "))
+                    # Buscar proyecto por ID
+                    try:
+                        id_pro = int(input("Ingrese el ID del proyecto a buscar: "))
+                    except ValueError:
+                        print("Error: El ID del proyecto debe ser un número entero.")
+                        continue
                     proyecto = proyecto_controller.buscar_proyecto_por_id(id_pro)
                     if proyecto:
                         print(proyecto)
                     else:
                         print("Proyecto no encontrado.")
 
+                # Opcion 4
                 elif sub_opcion == "3.4":
-                    id_pro = int(input("Ingrese el ID del departamento a modificar: "))
+                    # Modificar proyecto
+                    try:
+                        id_pro = int(input("Ingrese el ID del proyecto a modificar: "))
+                    except ValueError:
+                        print("Error: El ID del proyecto debe ser un número entero.")
+                        continue
                     proyecto = proyecto_controller.buscar_proyecto_por_id(id_pro)
                     if proyecto:
                         nombre = input("Ingrese el nuevo nombre del proyecto: ")
-                        descripcion = input("Ingrese la nueva descripcion del proyecto: ")
+                        descripcion = input("Ingrese la nueva descripción del proyecto: ")
                         fecha_inicio = input("Ingrese la nueva fecha de inicio del proyecto (YYYY-MM-DD): ")
 
                         proyecto_modificado = Proyecto(id=id_pro, nombre=nombre, descripcion=descripcion, fecha_inicio=fecha_inicio)
                         proyecto_controller.modificar_proyecto(proyecto_modificado)
-                        print("Departamento modificado exitosamente.")
-                    else:
-                        print("Departamento no encontrado.")
-
-                elif sub_opcion == "3.5":
-                    id_pro = int(input("Ingrese el ID del proyecto a eliminar: "))
-                    proyecto = proyecto_controller.buscar_proyecto_por_id(id_pro)
-                    if proyecto:
-                        proyecto_controller.eliminar_proyecto(id_pro)
-                        print("Proyecto eliminado exitosamente.")
+                        print("Proyecto modificado exitosamente.")
                     else:
                         print("Proyecto no encontrado.")
 
+                # Opcion 5
+                elif sub_opcion == "3.5":
+                    # Eliminar proyecto
+                    try:
+                        id_pro = int(input("Ingrese el ID del proyecto a eliminar: "))
+                    except ValueError:
+                        print("Error: El ID del proyecto debe ser un número entero.")
+                        continue
+                    confirmacion = input(f"¿Está seguro que desea eliminar el proyecto con ID {id_pro}? (s/n): ")
+                    if confirmacion.lower() == 's':
+                        resultado = proyecto_controller.eliminar_proyecto(id_pro)
+                        if resultado:
+                            print("Proyecto eliminado exitosamente.")
+                        else:
+                            print("Proyecto no encontrado o no se pudo eliminar.")
+                    else:
+                        print("Operación cancelada.")
+
+                # Opcion 6
                 elif sub_opcion == "3.6":
                     break
+                
+                # Opcion no Valida
+                else:
+                    print("Opción no válida. Por favor, seleccione una opción del menú.")
 
         # Registro de tiempo
         elif opcion == "4":
@@ -320,8 +371,27 @@ def main():
                 elif sub_opcion == "4.6":
                     break
 
-        # Salir
+        # Generación de Informes
         elif opcion == "5":
+            while True:
+                menu_informes()
+                sub_opcion = input("Seleccione una opción: ")
+
+                if sub_opcion == "5.1":
+                    informes_controller.generar_informe_empleados()
+                elif sub_opcion == "5.2":
+                    informes_controller.generar_informe_departamentos()
+                elif sub_opcion == "5.3":
+                    informes_controller.generar_informe_proyectos()
+                elif sub_opcion == "5.4":
+                    informes_controller.generar_informe_registros_tiempo()
+                elif sub_opcion == "5.5":
+                    break
+                else:
+                    print("Opción no válida. Por favor, seleccione una opción del menú.")
+
+        # Salir
+        elif opcion == "6":
             print("Saliendo del sistema...")
             break
 
